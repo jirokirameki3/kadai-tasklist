@@ -19,6 +19,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger]="メッセージが投稿されませんでした"
+      render:new
     end
   end
 
@@ -48,7 +49,11 @@ class TasksController < ApplicationController
 
   private
   
+  def set_message
+    @message = Message.find(params[:id])
+  end
+  
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content,:status)
   end
 end
